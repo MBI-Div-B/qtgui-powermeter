@@ -5,12 +5,21 @@ from taurus.qt.qtgui.display import TaurusLabel, TaurusLed
 from taurus.qt.qtgui.input import TaurusValueSpinBox, TaurusValueLineEdit, TaurusValueCheckBox
 from taurus.qt.qtgui.compact.basicswitcher import TaurusLabelEditRW, TaurusBoolRW
 from taurus_pyqtgraph import TaurusTrend
+from taurus.core.util.argparse import get_taurus_parser
 
 def main():
-    tango_device = 'test/CoherentPEM/powermax'
+    parser = get_taurus_parser()
+    parser.set_usage('python powermeter.py [domain/family/member]')
+    parser.set_description('Taurus GUI for Coherent PowerMax and EnergyMax powermeters')
+    
+    app = TaurusApplication(sys.argv, cmd_line_parser=parser, app_name='Coherent Powermeter')
+    args = app.get_command_line_args()
 
-    app = TaurusApplication(sys.argv, cmd_line_parser=None,)
-
+    try:
+        tango_device = args[0]
+    except IndexError:
+        print('tango device must be provided as argument!')
+        return
     # Define the layout and panels
 
     parent = Qt.QWidget()
@@ -117,7 +126,11 @@ def main():
     plot = TaurusTrend()
     model = [tango_device+'/Value']
     plot.setModel(model)
-    plot.loadConfigFile('TaurusTrend.pck')
+    
+    try:
+        plot.loadConfigFile('TaurusTrend.pck')
+    except:
+        pass
 
     plotpanel_layout.addWidget(plot)
 
