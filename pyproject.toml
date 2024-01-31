@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "taurus-powermeter"
+description = "Taurus GUI for Energymax Powermeter tango device"
+keywords = ["coherrent", "taurus", "powermeter", "energymax"]
+readme = "README"
+authors = [
+    {name = "Martin Hennecke"},
+]
+requires-python = ">=3.8"
+dependencies = ['pytango', 'taurus-pyqtgraph']
+license = {text = "MIT"}
+version = "1.0.0"
+
+[project.urls]
+Homepage = "https://github.com/MBI-Div-B/taurus-powermeter"
+
+[project.scripts]
+PowermeterGUI = "taurus_powermeter.powermeter:main"
+
+[tool.setuptools.packages.find]

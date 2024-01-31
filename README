@@ -1,0 +1,9 @@
+# taurus-powermeter
+
+## Installation
+Firstly you need to install the original tango device https://github.com/MBI-Div-B/pytango-CoherentPEM
+
+Then install this package with `pip install .`. 
+
+## Usage
+Run the programm with `PowermeterGUI tango_ds/family/name`.
